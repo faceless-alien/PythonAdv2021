@@ -1,3 +1,4 @@
+import math,random
 class Animal():
     def __init__(self,age):
         self.age=age
@@ -26,7 +27,10 @@ class Wolf(ForestAnimal):
         return "Волк поохотился и поел"
 class Cow(Livestock):
     def __init__(self ,age, milk=100, name):
-        self.age=age
+        if age >49:
+            age=49
+        if age<0:
+            age=2
         self.name=name
         self.milk=milk
     def milk(self):
@@ -34,4 +38,3 @@ class Cow(Livestock):
         return self.name'дала '+str(100-self.milk)+"молока"
     def sleep(self):
         self.milk=100
-        
