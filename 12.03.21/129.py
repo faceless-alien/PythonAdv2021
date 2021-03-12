@@ -28,9 +28,11 @@ class Wolf(ForestAnimal):
 class Cow(Livestock):
     def __init__(self ,age, milk=100, name):
         if age >49:
-            age=49
-        if age<0:
-            age=2
+            self.age=49
+        elif age<0:
+            self.age=1
+        else:
+            self.age=age
         self.name=name
         self.milk=milk
     def milk(self):
