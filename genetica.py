@@ -17,6 +17,20 @@ for i in range(10000):
     i=Crocodile(random.randint(1,10),random.randint(1,10),random.randint(1,10))
     crocs.append(i)
 while True:
+    #Оценка
+    near_crocs=0
+    total=0
+    for i in crocs: 
+        if i.compare()==0: 
+            break
+        else: 
+            if i.compare()<3:
+                near_crocs+=1
+        total+=i.compare()
+    else:
+        iterations+=1
+        print('1 цикл прошел, всего циклов:'+str(iterations))
+        print('Почти идеальных крокодилов:'+str(near_crocs))
     #Мутация
     mutation=[]
     for i in range(1001):
@@ -35,21 +49,21 @@ while True:
         parametrs=[crocs[i].legs,crocs[i+1].legs,crocs[i].eyes,crocs[i+1].eyes,crocs[i].size,crocs[i+1].size]
         y=Crocodile(random.choice(parametrs[0:2]),random.choice(parametrs[2:4]),random.choice(parametrs[4:]))
         x=Crocodile(random.choice(parametrs[0:2]),random.choice(parametrs[2:4]),random.choice(parametrs[4:]))
+        w=Crocodile(random.choice(parametrs[0:2]),random.choice(parametrs[2:4]),random.choice(parametrs[4:]))
+        z=Crocodile(random.choice(parametrs[0:2]),random.choice(parametrs[2:4]),random.choice(parametrs[4:]))
         potomstvo.append(y)
         potomstvo.append(x)
-        
-        
-    near_crocs=0
-    for i in potomstvo: 
-        if i.compare()==0: 
+        potomstvo.append(w)
+        potomstvo.append(z)
+    #Отсев
+    iters=0    
+    for i in potomstvo:
+        if iters==10000:
             break
-        else: 
-            if i.compare()<3:
-                near_crocs+=1
-    else:
-        iterations+=1
-        print('1 цикл прошел, всего циклов:'+str(iterations))
-        print('Почти идеальных крокодилов:'+str(near_crocs))
+        if i.compare()>total/1000:
+            potomstvo.pop(potomstvo.index(i))
+            iters+=1    
+    
     crocs=potomstvo
     potomstvo=[]
 print('Итераций понадобилось:'+str(iterations))
