@@ -19,8 +19,8 @@ def Thread_func():
     images+=a
 def mutate(img):
     c=[1,-1]
-    for i in range(img.shape[0]//10):
-        for j in range(img.shape[1]//10):
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
             random_x=random.randint(0,img.shape[0]-1)
             random_y=random.randint(0,img.shape[1]-1)
             
@@ -31,7 +31,7 @@ def mutate(img):
                 img[random_x][random_y][1]+=random.choice(c)
             else:
                 img[random_x][random_y][2]+=random.choice(c)
-    return img[random_x][random_y]
+    return img
 def Compare_with_example(image,example):
     perfect_pixels=1
     for i in range(image.shape[0]):
@@ -52,13 +52,10 @@ perfect_image=False
 iterations=0
 while not perfect_image:
     iterations+=1
-    for i in images:
-        i=mutate(i)
-    for i in images:
-        img=cv2.imread('bimba.jpg')
-        if Compare_with_example(i, img):
-            cv2.imshow('Кек',i)
-            cv2.waitKey(0)
-            perfect_image=True
-            break
+    images[0]=mutate(images[0])
+    img=cv2.imread('bimba.jpg')
+    if Compare_with_example(images[0], img):
+        cv2.imshow('Кек',images[0])
+        cv2.waitKey(0)
+        break
     print('Прошла '+str(iterations) +' итерация')
